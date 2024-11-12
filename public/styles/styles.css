@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .chat-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+  }
+  
+  .chat-window {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 300px;
+    overflow-y: scroll;
+  }
+  
+  .chat-window ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .chat-window li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  form {
+    display: flex;
+  }
+  
+  form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  form button {
+    padding: 10px 20px;
+    border: none;
+    background: #5cb85c;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background: #4cae4c;
+  }
+  
+  .form-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .form-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-container form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .form-container form button {
+    padding: 10px;
+    border: none;
+    background: #5cb85c;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-container form button:hover {
+    background: #4cae4c;
+  }
+  
+  .form-container p {
+    margin-top: 10px;
+  }
+  
