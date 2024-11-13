@@ -1,20 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chat Room</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #chatContainer {
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 80%;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    #chatBox {
+      flex-grow: 1;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      background: #fafafa;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    #message {
+      width: calc(100% - 80px);
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+    button {
+      padding: 12px 20px;
+      border: none;
+      background: #28a745;
+      color: white;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #218838;
+    }
+    input[type="text"]:focus {
+      border-color: #28a745;
+    }
+  </style>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/chat.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const socket = io();
+      const chatBox = document.getElementById('chatBox');
+      const messageInput = document.getElementById('message');
+      
+      socket.on('chatMessage', (msg) => {
+        const item = document.createElement('div');
+        item.textContent = msg;
+        chatBox.appendChild(item);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+
+      document.getElementById('sendBtn').addEventListener('click', () => {
+        const msg = messageInput.value;
+        socket.emit('chatMessage', msg);
+        messageInput.value = '';
+      });
+
+      messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          document.getElementById('sendBtn').click();
+        }
+      });
+    });
+  </script>
 </head>
 <body>
-  <div class="chat-container">
-    <div class="chat-window">
-      <ul id="messages"></ul>
+  <div id="chatContainer">
+    <h1>Chat</h1>
+    <div id="chatBox"></div>
+    <div style="display: flex; justify-content: space-between;">
+      <input id="message" type="text" placeholder="Type a message">
+      <button id="sendBtn">Send</button>
     </div>
-    <form id="chat-form">
-      <input id="message" autocomplete="off" placeholder="Type your message here..." /><button>Send</button>
-    </form>
   </div>
 </body>
 </html>

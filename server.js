@@ -1,5 +1,4 @@
-require('dotenv').config(); // Charge les variables d'environnement depuis le fichier .env
-
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Sequelize, DataTypes } = require('sequelize');
@@ -31,27 +30,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
 
 // Configuration de la base de données
-const sequelize = new Sequelize('projet_etudiants', 'root', '', {
-  host: 'localhost',
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+  host: process.env.DB_HOST,
   dialect: 'mysql'
 });
 
 // Définition du modèle d'utilisateur
-const User = sequelize.define('User', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
-});
+
 
 // Synchronisation de la base de données
 sequelize.sync().then(() => {
@@ -59,7 +44,6 @@ sequelize.sync().then(() => {
 }).catch(err => {
   console.error('Unable to connect to the database:', err);
 });
-
 sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.');
 }).catch(err => {
@@ -91,8 +75,11 @@ app.get('/register', (req, res) => {
   res.render('register');
 });
 
-app.get('/chat', isAuthenticated, (req, res) => {
+app.get('/chat', (req, res) => {
   res.render('chat');
+});
+app.get('/chat', (req, res) => {
+  res.send('<h1>Chat Page</h1>');
 });
 
 // Route de création d'utilisateur
